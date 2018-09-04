@@ -1,0 +1,69 @@
+---
+title: "Wrangling"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cars}
+dogs<-  read.csv("C:\\Users\\hp\\Desktop\\udacity\\wrangling\\project\\final_dataset.csv")
+
+```
+
+The csv file is read into a dataframe called 'dogs' in R environment . This dataset will be used to perform analysis and find insights from the given data . 
+<br> 
+<br>
+
+### Distribution :
+
+
+```{r}
+library(ggplot2)
+ggplot(data = subset(dogs , ! is.na(growth_stage )) , aes( x= growth_stage )) + geom_bar( fill = 'red')
+
+
+```
+<br>
+From the dogs whose growth stage is knowm maximum are pupper in our dataset .
+
+### How are retweet counts and dog growth stage  connected ? 
+
+
+```{r}
+library(ggplot2)
+
+by(dogs$retweet_count , dogs$growth_stage , summary)
+ggplot(data = subset(dogs , ! is.na(growth_stage )) , aes( x= growth_stage , y = retweet_count)) + geom_boxplot() + coord_cartesian(ylim = c(0,20000))
+```
+<br>
+It found that the puppo has a high median count of retweets but the highest retweet count is of a doggo . <br>
+
+### Favourite counts and dog stage connected ? 
+```{r}
+ggplot(data = subset(dogs , ! is.na(growth_stage )) , aes( x= growth_stage , y = favorite_count)) + geom_boxplot()+coord_cartesian(ylim = c(0,70000))
+
+by(dogs$favorite_count , dogs$growth_stage , summary)
+
+```
+
+<br> 
+puppo has the highest median favourite counts as well as the highest favourite count for a tweet .
+
+<br> 
+### Distribution of dogs based on breeds? 
+
+<br> 
+We are assuming that the first predicition p1 is the breed of the dog 
+
+```{r}
+only_dogs <- subset(dogs , dogs$p1_dog == 'True')
+summary(only_dogs$p1)
+```
+<br>
+Maximum dogs in the dataset could be golden retriever . 
+
+`
+
+ 
